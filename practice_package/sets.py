@@ -1,7 +1,9 @@
 from typing import Any, Iterable, List, Set
 
+
 def find_common_elements(set1: Set[Any], set2: Set[Any]) -> Set[Any]:
     return set1 & set2
+
 
 def find_shared_items(*sets: Iterable[Set[Any]]) -> Set[Any]:
     if not sets:
@@ -11,8 +13,10 @@ def find_shared_items(*sets: Iterable[Set[Any]]) -> Set[Any]:
         res &= set(s)
     return res
 
+
 def is_superset(set_a: Set[Any], set_b: Set[Any]) -> bool:
     return set_a.issuperset(set_b)
+
 
 def remove_duplicates(items: List[Any]) -> List[Any]:
     seen = set()
@@ -22,6 +26,7 @@ def remove_duplicates(items: List[Any]) -> List[Any]:
             seen.add(x)
             out.append(x)
     return out
+
 
 def count_unique_words(text: str) -> int:
     words = text.lower().split()

@@ -1,5 +1,6 @@
 from copy import deepcopy
-from typing import Any, Dict, List, Callable
+from typing import Any, Callable, Dict, List
+
 
 def count_char_occurrences(text: str) -> Dict[str, int]:
     if text.count('-') == 1:
@@ -12,6 +13,7 @@ def count_char_occurrences(text: str) -> Dict[str, int]:
             counts[ch] = counts.get(ch, 0) + 1
     return counts
 
+
 def merge_dicts(d1: Dict[Any, Any], d2: Dict[Any, Any],
                 resolver: Callable[[Any, Any, Any], Any]) -> Dict[Any, Any]:
     result: Dict[Any, Any] = {}
@@ -21,11 +23,13 @@ def merge_dicts(d1: Dict[Any, Any], d2: Dict[Any, Any],
         result[k] = resolver(k, d1[k], d2[k])
     return result
 
+
 def invert_dictionary(original: Dict[Any, Any]) -> Dict[Any, List[Any]]:
     inverted: Dict[Any, List[Any]] = {}
     for k, v in original.items():
         inverted.setdefault(v, []).append(k)
     return inverted
+
 
 def _col_widths(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> Dict[str, int]:
     widths: Dict[str, int] = {}
@@ -37,16 +41,18 @@ def _col_widths(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> Dict[str
         widths[col] = max_len
     return widths
 
+
 def dict_to_table(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> str:
     widths = _col_widths(data, columns)
     header = "| " + " | ".join(c.upper().ljust(widths[c]) for c in columns) + " |"
-    sep    = "|" + "|".join("-"*(widths[c]+2) for c in columns) + "|"
+    sep = "|" + "|".join("-" * (widths[c] + 2) for c in columns) + "|"
     rows = []
     for row in data.values():
         rows.append(
             "| " + " | ".join(str(row.get(c, 'N/A')).ljust(widths[c]) for c in columns) + " |"
         )
     return "\n".join([header, sep] + rows)
+
 
 def deep_update(
     base: Dict[Any, Any],

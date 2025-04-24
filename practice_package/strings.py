@@ -1,5 +1,6 @@
 import os
 
+
 def extract_file_name(path: str) -> str:
     base = os.path.basename(path)
     if base.startswith('.') and base.count('.') == 1:
@@ -13,10 +14,12 @@ def extract_file_name(path: str) -> str:
         parts = parts[:-1]
     return '.'.join(parts)
 
+
 def encrypt_sentence(sentence: str) -> str:
     odds = [sentence[i] for i in range(1, len(sentence), 2)]
     evens = [sentence[i] for i in range(0, len(sentence), 2)][::-1]
     return ''.join(odds + evens)
+
 
 def check_brackets(expression: str) -> int:
     stack = []
@@ -34,8 +37,10 @@ def check_brackets(expression: str) -> int:
                 return pos
     return -1 if stack else 0
 
+
 def reverse_domain(domain: str) -> str:
     return '.'.join(domain.split('.')[::-1])
+
 
 def count_vowel_groups(word: str) -> int:
     w = word.lower()
