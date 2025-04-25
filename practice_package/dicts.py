@@ -31,7 +31,10 @@ def invert_dictionary(original: Dict[Any, Any]) -> Dict[Any, List[Any]]:
     return inverted
 
 
-def _col_widths(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> Dict[str, int]:
+def _col_widths(
+    data: Dict[Any, Dict[str, Any]],
+    columns: List[str]
+) -> Dict[str, int]:
     widths: Dict[str, int] = {}
     for col in columns:
         max_len = len(col.upper())
@@ -42,15 +45,27 @@ def _col_widths(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> Dict[str
     return widths
 
 
-def dict_to_table(data: Dict[Any, Dict[str, Any]], columns: List[str]) -> str:
+def dict_to_table(
+    data: Dict[Any, Dict[str, Any]],
+    columns: List[str]
+) -> str:
     widths = _col_widths(data, columns)
-    header = "| " + " | ".join(c.upper().ljust(widths[c]) for c in columns) + " |"
-    sep = "|" + "|".join("-" * (widths[c] + 2) for c in columns) + "|"
+
+    header = "| " + " | ".join(
+        c.upper().ljust(widths[c]) for c in columns
+    ) + " |"
+
+    sep = "|" + "|".join(
+        "-" * (widths[c] + 2) for c in columns
+    ) + "|"
+
     rows = []
     for row in data.values():
-        rows.append(
-            "| " + " | ".join(str(row.get(c, 'N/A')).ljust(widths[c]) for c in columns) + " |"
-        )
+        line = "| " + " | ".join(
+            str(row.get(c, 'N/A')).ljust(widths[c]) for c in columns
+        ) + " |"
+        rows.append(line)
+
     return "\n".join([header, sep] + rows)
 
 
